@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biểu mẫu đăng ký</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Reset CSS */
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    line-height: 1.5;
+    color: #333;
+}
+
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    
+}
+
+
+
+input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    flex: 1;
+}
+
+input:focus {
+    border-color: #999;
+}
+
+.checkbox {
+    margin-top: 10px;
+
+}
+
+.checkbox label {
+    margin-left: 5px;
+    
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0069d9;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sign Up</h1>
+        <form action="#">
+            <div class="form-group">
+                <label for="first-name"></label>
+                <input type="text" id="first-name" name="first-name" required placeholder="First Name">
+           
+                <label for="last-name"></label>
+                <input type="text" id="last-name" name="last-name" required placeholder="Last Name">
+            </div>
+            <div class="form-group">
+                <label for="email"></label>
+                <input type="email" id="email" name="email" required placeholder="Email Address">
+            </div>
+            <div class="form-group">
+                <label for="password"></label>
+                <input type="password" id="password" name="password" required placeholder="Password">
+            </div>
+            <div class="form-group checkbox">
+                <input type="checkbox" id="newsletter" name="newsletter">
+                <label for="newsletter">Tôi muốn nhận thông tin, khuyến mãi và cập nhật qua email.</label>
+            </div>
+            <button type="submit">Đăng ký</button>
+        </form>
+        <p>Đã có tài khoản? <a href="login.html">Đăng nhập</a></p>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+    const signupForm = document.getElementById("signup-form");
+    const loginContainer = document.getElementById("login-container");
+    const signupContainer = document.querySelector(".container");
+    const loginLink = document.getElementById("login-link");
+
+    signupForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+        const firstName = document.getElementById("first-name").value;
+        const lastName = document.getElementById("last-name").value;
+        const email = document.getElementById("signup-email").value;
+        const password = document.getElementById("signup-password").value;
+        const rememberMe = document.getElementById("remember-me").checked;
+
+        // Lưu thông tin đăng ký vào localStorage
+        const userData = {
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            password: password,
+            rememberMe: rememberMe
+        };
+
+        // Lưu dữ liệu vào localStorage
+        localStorage.setItem("userData", JSON.stringify(userData));
+
+        // Redirect hoặc hiển thị thông báo thành công
+        alert("Sign up successful!");
+    });
+
+    loginLink.addEventListener("click", function(event) {z
+        event.preventDefault();
+        signupContainer.style.display = "none";
+        loginContainer.style.display = "block";
+    });
+});
+      </script>
+</body>
+</html>

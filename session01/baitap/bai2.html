@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let a = [1,2,3,4,5]
+        let max = a[0]
+        for(let i = 0; i<a.length;i++){
+            if (a[i] >= max){
+                max = a[i];
+            }
+        }
+        console.log(max);
+       
+        let arr = [5,3,6,1,4];
+        for(let i = 0;i<arr.length;i++){
+            for(let j = 0; j<arr.length-i; j++){
+                if(arr[j]>arr[j+1]){
+                    let temp = arr[j+1];
+                    arr[j+1]=arr[j];
+                    arr[j]=temp;
+                }
+            }
+        }
+    console.log("tu be den lon: ", arr);
+    </script>
+</body>
+</html>

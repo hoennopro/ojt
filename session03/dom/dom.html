@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="dom">dom</h1>
+    <!-- 
+        document.getElementById("dom")
+     -->
+     <!-- đổi nội dung dom thành: học lập trình -->
+    <button onclick="changeColor()">click</button>
+    <img src="" alt="">
+    <p class="heading">lop A</p>
+    <p class="heading">lop B</p>
+    
+    <!-- 
+        DOM: document object modal
+        mô hình tài liệu dạng đối tượng
+        Q/A: Dom sinh ra khi nào?
+        Khi trang web được tải thì trình duyệt sẽ tạo ra một số mô hình cây DOM
+        Các thành phần trong DOM gồm 3 thành phần
+        1. element
+        Các cách để láy element 
+        I. lấy theo id
+        ==> trả về ELEMENT có id đó
+        II. lấy theo class
+        ==> trả về HTML COLLECTION
+        III. lấy theo thẻ tag
+        IV. lấy theo selector 
+        - querySelector trả về 1 element đầu tiên duy nhất
+        - querySelectorAll trả về 1 nodelíst
+        2. attribute: thuộc tính
+        - classList: Lấy ra danh sách class của element
+        + Cung cấp các phương thức
+        add(): thêm class
+        remove(): xóa class
+        contain(): kiểm tra xem có tồn tại class hay không
+        toggle(): như công tắc có class thì xóa đi mà không có class thì thêm vào.
+    - setAttribute: thêm thuộc tính 
+        3. text
+        I. innerHTML
+        II. textContent
+        III.innerText
+     -->
+     <script>
+        let ele= document.getElementById("dom");
+        let elemByClass = document.getElementsByClassName("heading");
+        let elemByTagName = document.getElementsByTagName("p");
+        let elemBySelector= document.querySelector(".heading");
+        let elemBySelectorAll= document.querySelectorAll(".heading");
+
+        let count = 0;
+
+
+        function changeColor(){
+            let element = document.getElementById("dom");
+            // // element.classList.add("dom");
+            // element.setAttribute("class","title");
+            element.innerHTML = "hoc lap trinh";
+        
+        count++;
+        if (count%2!==0) {
+            element.innerHTML="hoc lap trinh";
+        }else{
+            element.innerHTML="dom";
+        }
+    }
+    
+     </script>
+</body>
+
+</html>

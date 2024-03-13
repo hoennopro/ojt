@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        Array: Mảng thuộc kiểu dữ liệu phức tạp(tham chiếu-reference)
+        I. Cách khai báo
+        Q/A: có bao nhiêu cách khai báo(khởi tạo 1 mảng);
+        1. let arr = [];
+        2. let strudent = new Array();
+        Các phần tử trong mảng ngăn cách với nhau bởi dấu phẩy
+        Mảng có thể chứa nhiều kiểu dữ liệu khác nhau
+        mảng đánh chỉ mục index từ 0
+        kiểm tra độ dài mảng: tên mảng .length
+        Các cách duyệt mảng
+        1. dùng for
+        2. for-in: trả về chỉ mục
+        3. for-of: trả về giá trị
+        *********
+        CRUD với mảng
+        1.C:Create
+        +unshift: thêm vào đầu
+        +push:thêm vào cuối
+        +splice: thêm vào vị trí bất kì
+        2.R:Read 
+        - dùng for, for-in, for-of 
+        3.U:Update
+        - dùng splice
+        - update theo vị trí: object[number] = "..."
+        4.D:Delete
+        -pop: xóa phần tử cuối cùng trong mảng
+        -shift: xáo phần tử đầu
+        -dùng splice 
+
+        CÁC PHƯƠNG THỨC LÀM VIỆC VỚI MẢNG
+        1. pop(): xóa phần tử cuối
+        2. push(): thêm vào cuối
+        3. shift(): xóa phần tử đầu
+        4. unshift(): thêm vào đầu
+        5. join(): mảng -> chuỗi
+        let array = ["hoa", "hong"]
+        let result = arr.join("@");
+        console.log("result", result); -> "hoa hong"
+        6. split(): chuỗi -> mảng
+        let text = "co gang hoc lap trinh";
+        let result = text.split(" ");
+        console.log(result); ->"co", "gang", ...
+        7. concat(): gộp mảng
+        8. splice(): thêm, sửa, xóa
+        9. slice(): cắt, sao chép -> mảng mới
+        10. map(): 
+        11. filter()
+        12. for each()
+        13. reduce()
+        14. find()
+        15. findIndex()
+        16. startWidth  
+        17. endWidth
+        18. charAt()
+        19. indexOf()
+        20. include()
+        21. every()
+        22. fill()
+        23. copywith
+        24. reverse()
+        25.sort()
+    -->
+    <input type="text" id="productNameInput" placeholder="mời nhập tên sản phẩm muốn mua">
+    <button onclick="addToCart()" id="product">mua</button>
+    <script>
+//   let students=["hoa","hồng", "minh","hùng"];
+// //   students.splice(2, 0, "nhung") -> hoa hồng nhung minh hùng
+// // students[1] = "hạnh"; -> hoa hạnh minh hùng
+
+//   console.log(students);
+//   for (let i = 0; i<students.length;i++){
+    //     console.log(students[i]); 
+    //   }
+    //   console.log("****************")
+    //   for (const key111 in students){
+        //     console.log(students[key111]);
+        //   }
+        //   console.log("****************")
+        //   for (const value of students) {
+            //     console.log(("value", value));
+            //   }
+            
+            let products=[
+            {
+                id:1,
+                name:"iphone5",
+                quantity:5,
+                price:5000
+            },
+        {
+            id:2,
+            name:"iphone6",
+            quantity:7,
+            price:6000
+        },
+        {
+            id:3,
+            name:"iphone7",
+            quantity:8,
+            price:8000
+        },
+        ]
+        // let sum = 0;
+        // for(let i = 0; i< cart.length; i++){
+            //     sum += cart[i].quantity * cart[i].price
+            // };
+            // console.log(sum);
+            //     let  product = ["quan", "ao", "rau", "banh"];
+            //     let flag = true;
+            
+            // for (let i = 0; i < product.length; i++) {
+                //     if (product[i] === "rau") {
+                    //         flag = true;
+                    //         break;
+                    //     }else{
+                        //         flag = false;
+    //     }
+    // }
+    
+    // if (flag) {
+        //     console.log("co rau");
+        // } else {
+            //     console.log("kco rau");
+            // }
+            
+            /*
+            Phân tích bài toán
+            1. lấy giá trị ô input người dùng nhập vào
+            2. kiểm tra xem trong cửa hàng có tồn tại sản phẩm để bán hay không
+            3. nếu có thì thêm vào giỏ hàng gồm các thuộc tính
+            {
+                id:""
+                name:""
+                quantity:""
+                price:""
+            }
+            Kiểm tra xem sản phẩm thêm vào có trong giỏ hàng hay chưa nếu có rồi thì tăng số lượng còn không có thì thêm vào bình thường
+            */
+            let cart = [];
+            let isflag = false;
+            function addToCart(){
+                let productName = document.getElementById("product").value;
+                // kiểm tra xem sản phẩm có trong cửa hàng hay không
+                let prcart;
+                for(let i = 0; i<products.length; i++){
+                    if(productName === products[i].name){
+                        console.log("san pham co trong cua hang");
+                        prcart = products[i];
+                        isflag = true;
+                        break
+                    } else {
+                        isflag = false 
+                    }
+                }
+                if(!isflag){
+                    console.log("san pham khong co trong cua hang");
+                }else{
+                    // tiến hành đi mua hàng
+                    let check = false;
+                    for(let i = 0; i <cart.length;i++){
+                        if(productName === cart[i].name){
+                            check = true;
+                            break;
+                        };
+                    };
+                    if(check){
+                        // tang so luong
+                        for(let j = 0; j<cart.length; j++){
+                            if(productName === cart[j].name){
+                                cart[j].quantity++;
+                            }
+                        }
+                    }else{
+                        // them  hang vao trong gio
+                        prcart.quantity=1;
+                        cart.push(prcart);
+                    }
+                }
+                console.log(cart);
+            }
+            
+            
+
+            
+        </script>
+        </body>
+        </html>

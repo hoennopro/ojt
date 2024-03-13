@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /* 
+        Đối với while sẽ thực hiện kiểm tra điều kiện trước
+        - Nếu điều kiện đúng thì chạy thân
+        - Nếu điều kiện sai thì dừng chương trình
+        Q/A: while và for khác nhau thế nào??
+        */
+    //    let i = 0;
+    //    while (i<5){
+    //        i++;
+    //     }
+    //     console.log("i",i);
+    //     
+    <!-- Viết chương trình nhập vào một câu bất kì in ra câu đảo ngược của nó. -->
+    // VIết chương trình nhập vào 5 số nguyên. in ra số nguyên lớn nhất và sắp xếp chuỗi số theo thứ tự gảim dần
+    // Viết chương trình nhập vào 1 số nguyên dương n (n<=100) Hãy in ra bằng số có n dòng mỗi dòng in n số nguyên liên tiếp dòng thứ i bắt đầu từ số i
+    // 1
+    function daoNguocChuoi(chuoi) {
+    var chuoiDaoNguoc = '';
+    for (var i = chuoi.length - 1; i >= 0; i--) {
+        chuoiDaoNguoc += chuoi[i];
+    }
+    return chuoiDaoNguoc;
+}
+
+function inCauDaoNguoc() {
+    var cau = prompt("Nhập vào một câu:");
+    var cauDaoNguoc = daoNguocChuoi(cau);
+    console.log("Câu đảo ngược là:", cauDaoNguoc);
+}
+
+inCauDaoNguoc();
+    // 2
+  
+function nhapSoNguyen() {
+    var mangSoNguyen = [];
+    for (var i = 0; i < 5; i++) {
+        var so = parseInt(prompt("Nhập số nguyên thứ " + (i + 1) + ":"));
+        mangSoNguyen.push(so);
+    }
+    return mangSoNguyen;
+}
+
+
+function timSoLonNhat(mang) {
+    var max = mang[0];
+    for (var i = 1; i < mang.length; i++) {
+        if (mang[i] > max) {
+            max = mang[i];
+        }
+    }
+    return max;
+}
+
+
+function sapXepGiamDan(mang) {
+    return mang.sort(function(a, b) {
+        return b - a;
+    });
+}
+
+
+function main() {
+    var mangSoNguyen = nhapSoNguyen();
+    var soLonNhat = timSoLonNhat(mangSoNguyen);
+    var mangSapXep = sapXepGiamDan(mangSoNguyen);
+
+    console.log("Số lớn nhất là:", soLonNhat);
+    console.log("Mảng sau khi sắp xếp giảm dần là:", mangSapXep);
+}
+
+
+main();
+    // 3
+    function nhapSoNguyenDuong() {
+    var n;
+    do {
+        n = parseInt(prompt("Nhập vào số nguyên dương n (n <= 100):"));
+    } while (isNaN(n) || n <= 0 || n > 100);
+    return n;
+}
+
+
+function inBangSo(n) {
+    for (var i = 1; i <= n; i++) {
+        var hang = "";
+        for (var j = i; j < i + n; j++) {
+            hang += j + " ";
+        }
+        console.log(hang);
+    }
+}
+
+
+function main() {
+    var n = nhapSoNguyenDuong();
+    inBangSo(n);
+}
+
+main();
+    </script>
+</body>
+</html>

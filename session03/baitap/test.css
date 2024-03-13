@@ -1,0 +1,55 @@
+#imageContainer {
+    position: relative;
+    text-align: center;
+}
+#mainImage {
+    width: 600px;
+    height: 400px;
+    transition: filter 0.5s ease;
+}
+.controlButton {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+#previousButton {
+    left: 10px;
+}
+#nextButton {
+    right: 10px;
+}
+#imageList {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+#imageList li {
+    margin: 0 10px;
+    cursor: pointer;
+}
+#imageList li img {
+    max-width: 100px;
+    max-height: 80px;
+    transition: filter 0.5s ease;
+    filter: brightness(50%); /* Mặc định, tất cả các hình ảnh đều tối đi */
+
+}
+
+#imageList li img:hover {
+    filter: brightness(70%); 
+    
+}
+.zoomed {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    cursor: zoom-out;
+}

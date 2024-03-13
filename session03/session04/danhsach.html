@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <style>
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+            
+        }
+        div{
+            display: flex;
+            flex-direction: row;
+            align-items: center; 
+            gap: 5px;
+        }
+       h1{
+        margin-left: 230px;
+       }
+    </style>
+</head>
+<body>
+    
+    <h1>Danh sách học viên</h1>
+    <div class="search-bar">
+        <p>Tìm kiếm tên học viên: </p>
+        <input type="text">
+        <button type="submit">seach</button>
+    </div>
+    <table>
+        <tr>
+            <th>#</th>
+            <th>Họ tên</th>
+            <th>Email</th>
+            <th>Điện thoại</th>
+            <th>Địa chỉ</th>
+            <th>Gender</th>
+            <th colspan="2">Hành động</th>
+            <th><button type="submit">sắp xếp(alpha b)</button></th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>rikkei</td>
+            <td>rikkei@gmail.com</td>
+            <td>0823868888</td>
+            <td>hà nội</td>
+            <td>nam</td>
+            <td>edit </td>
+            <td>delete</td>
+            <td rowspan ="2">
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>academy</td>
+            <td>academy@gmail.com</td>
+            <td>0828638888</td>
+            <td>hcm</td>
+            <td>nu</td>
+            <td>edit</td>
+            <td>delete</td>
+            
+        </tr>
+        
+    </table>
+    <script> // Array to store student data
+        let students = [];
+        function save(){
+            let valueGender="";
+            let name = document.getElementById("name").value    
+            let email = document.getElementById("email").value    
+            let phone = document.getElementById("phone").value
+            let address = document.getElementById("address").value
+            let gender = document.getElementsByName("gender");
+        }
+        for (let i = 0; i < checkBox.length; i++) {
+            if(checkBox[i].checked == true){
+                valueGender = checkBox[i].value
+            }
+            let obj = {
+                id:Math.floor(Math.random()*99999999),
+                name:name,
+                email:email,
+                phone:phone,
+                address:address,
+                gender:valueGender,
+            }
+            students.push=(obj);
+        }
+        function render(){
+            let text="";
+            for (let i = 0; i < students.length; i++) {
+                text += 
+                `
+                <tr>
+            <td>${i+1}</td>
+            <td>${students[i].name}</td>
+            <td>${students[i].email}</td>
+            <td>${students[i].phone}</td>
+            <td>${students[i].address}</td>
+            <td>${students[i].gender}</td>
+            <td>edit </td>
+            <td>delete</td>
+            <td rowspan ="2">
+            </tr>
+               `
+            }
+            document.getElementById("")
+        }
+        fetch("danhsach.html", {
+    method: "POST"
+  })
+  .then(response => response.json())
+  .then(data => {
+    // Process the received student data (e.g., render table)
+    console.log("Received data:", data);
+  });
+    </script>
+</body>
+</html>

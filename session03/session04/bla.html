@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management</title>
+    <style>
+        td {
+            padding: 15px;
+        }
+
+        input{
+            padding: 5px;
+        }
+    </style>
+</head>
+<body onload="View()">
+    <h1>Nhập thông tin</h1>
+    <table border="1" cellpadding="8">
+        <tbody>
+            <tr>
+                <td>ID</td>
+                <td colspan="3"><input type="number" id="id"> </td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td colspan="3"><input type="text" id="name"> </td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td colspan="3"><input type="email" id="email"> </td>
+            </tr>
+            <tr>
+                <td>Phone</td>
+                <td colspan="3"><input type="number" id="phone"> </td>
+            </tr>
+
+            <tr align="center">
+                <td colspan="4">
+                    <button id="addButton" onclick="Add()">Add</button>
+                    <button id="refreshButton" onclick="Refresh()">Refresh</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div id="searchOptions">
+        <label for="searchInput">Search:</label>
+        <input type="text" id="searchInput">
+        <button onclick="Search()">Go</button>
+    </div>
+
+    <div id="sortOptions">
+        <label for="sortSelect">Sort by:</label>
+        <select id="sortSelect" onchange="Sort()">
+            <option value="id">ID</option>
+            <option value="name">Name</option>
+            <option value="phone">Phone</option>
+            <option value="email">Email</option>
+        </select>
+    </div>
+
+    <div id="database" style="margin-top: 20px;"></div>
+
+    <script>
+        var data = JSON.parse(localStorage.getItem("data")) || [];
+        var editingID = null;
+
+        // Function to check if ID already exists
+        function checkID(id){
+            var list = this.data;
+            for (var i = 0; i < list.length; i++){
+                if (list[i].id == id) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // Function to check if all information is provided
+        function checkInfo(){
+            var id = document.getElementById('id').value;
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+            var phone = document.getElementById('phone').value;
+
+            if (id && name && email && phone) {
+                return true;
+            } else {
+                alert('Vui lòng nhập đầy đủ thông tin trước khi thêm!');
+                return false;
+            }
+        }
+
+        // Add new employee
+        function Add(){
+            var id = document.getElementById('id').value;
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+            var phone = document.getElementById('phone').value;
+
+            var item = {
+                id: id,
+                name: name,
+                email: email,
+                phone: phone
+            };
+
+            if (editingID !== null) {
+                // Editing existing employee
+                if (checkInfo()){
+                    // Find the index of the employee being edited
+                    var index = data.findIndex(function(employee) {
+                        return employee.id == editingID;
+                    });
+                    // Update the employee data
+                    data[index] = item;
+                    localStorage.setItem("data", JSON.stringify(data));
+                    View();
+                    ResetForm();
+                }
+            } else {
+                // Adding new employee
+                if (checkID(id)) {
+                    alert("ID đã tồn tại, vui lòng nhập ID khác!");
+                } else if (checkInfo()){
+                    data.push(item);
+                    localStorage.setItem("data", JSON.stringify(data));
+                    View();
+                    ResetForm();
+                }
+            }
+        }
+
+        // Display employees
+        function View(){
+            var list = data;
+
+            var datas = '<table border="1" cellpadding="5"><tr><td>Id</td><td>Name</td><td>Phone</td><td>Email</td><td>Action</td></tr>';
+            for (var i = 0; i < list.length; i++){
+                datas += "<tr>";
+                datas += "<td>" + list[i].id + "</td>"; 
+                datas += "<td>" + list[i].name + "</td>"; 
+                datas += "<td>" + list[i].phone + "</td>"; 
+                datas += "<td>" + list[i].email + "</td>"; 
+                datas += "<td><button onclick='Deletes(" + list[i].id + ")'>Xóa</button>";
+                datas += "<button onclick='Edit(" + list[i].id + ")'>Edit</button>";
+                datas += "</tr>";
+            }
+            datas += '</table>';
+
+            if (list.length != 0) {
+                document.getElementById('database').innerHTML = datas;
+            } else {
+                document.getElementById('database').innerHTML = 'Dữ liệu trống!';
+            }
+        }
+
+        // Delete employee by id
+        function Deletes(id){
+            var list = data;
+            var check = confirm("Bạn có muốn xóa nhân viên này không?");
+
+            if(check){
+                for (var i = 0; i < list.length; i++){
+                    if (list[i].id == id) {
+                        list.splice(i, 1);
+                    }
+                }
+            }
+            localStorage.setItem("data", JSON.stringify(data));
+            View(); 
+        }
+
+        // Refresh
+        function Refresh(){
+            ResetForm();
+        }
+
+        // Reset the form fields
+        function ResetForm() {
+            document.getElementById('id').value = '';
+            document.getElementById('name').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('phone').value = '';
+            document.getElementById('addButton').innerText = 'Add';
+            editingID = null;
+        }
+
+        // Edit
+        function Edit(id){
+            var employee = data.find(function(employee) {
+                return employee.id == id;
+            });
+            if (employee) {
+                document.getElementById('id').value = employee.id;
+                document.getElementById('name').value = employee.name;
+                document.getElementById('email').value = employee.email;
+                document.getElementById('phone').value = employee.phone;
+                document.getElementById('addButton').innerText = 'Save';
+                editingID = id;
+            }
+        }
+
+        // Search
+        function Search(){
+            var searchInput = document.getElementById('searchInput').value.toLowerCase();
+            var filteredData = data.filter(function(employee) {
+                return (
+                    employee.id.toString().toLowerCase().includes(searchInput) ||
+                    employee.name.toLowerCase().includes(searchInput) ||
+                    employee.email.toLowerCase().includes(searchInput) ||
+                    employee.phone.toString().toLowerCase().includes(searchInput)
+                );
+            });
+            displayFilteredData(filteredData);
+        }
+
+       // Sort
+function Sort(){
+    var sortSelect = document.getElementById('sortSelect');
+    var sortBy = sortSelect.options[sortSelect.selectedIndex].value;
+    data.sort(function(a, b) {
+        if (sortBy === 'id') {
+            return parseInt(a[sortBy]) - parseInt(b[sortBy]);
+        } else {
+            if (a[sortBy] < b[sortBy]) return -1;
+            if (a[sortBy] > b[sortBy]) return 1;
+            return 0;
+        }
+    });
+    View();
+}
+
+        // Display filtered data
+        function displayFilteredData(filteredData) {
+            var datas = '<table border="1" cellpadding="5"><tr><td>Id</td><td>Name</td><td>Phone</td><td>Email</td><td>Action</td></tr>';
+            for (var i = 0; i < filteredData.length; i++){
+                datas += "<tr>";
+                datas += "<td>" + filteredData[i].id + "</td>"; 
+                datas += "<td>" + filteredData[i].name + "</td>"; 
+                datas += "<td>" + filteredData[i].phone + "</td>"; 
+                datas += "<td>" + filteredData[i].email + "</td>"; 
+                datas += "<td><button onclick='Deletes(" + filteredData[i].id + ")'>Xóa</button>";
+                datas += "<button onclick='Edit(" + filteredData[i].id + ")'>Edit</button>";
+                datas += "</tr>";
+            }
+            datas += '</table>';
+            document.getElementById('database').innerHTML = datas;
+        }
+    </script>
+</body>
+</html>

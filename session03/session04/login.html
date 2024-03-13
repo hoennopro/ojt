@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biểu mẫu đăng ký</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Reset CSS */
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+}
+
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input {
+
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #999;
+}
+
+.checkbox {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    
+}
+
+.checkbox label {
+   
+    font-weight: normal;
+    margin: 0;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0069d9;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sign in</h1>
+        <form action="#">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required placeholder="Nhập email">
+            </div>
+            <div class="form-group">
+                <label for="password">Mật khẩu:</label>
+                <input type="password" id="password" name="password" required placeholder="Nhập mật khẩu">
+            </div>
+            <div class="form-group checkbox">
+                <input type="checkbox" id="remember-me" name="remember-me">
+                <label for="remember-me">Ghi nhớ đăng nhập</label>
+            </div>
+            <button type="submit">Đăng nhập </button>
+        </form>
+        <p><a href="#">Forgot password?</a> <a href="signup.html">Dont have an acount? Sign up</a> </p>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+    const loginForm = document.getElementById("login-form");
+    const loginContainer = document.getElementById("login-container");
+    const signupContainer = document.querySelector(".container");
+    const signupLink = document.getElementById("signup-link");
+    const signupPageLink = document.getElementById("signup-page-link");
+
+    loginForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+        const email = document.getElementById("login-email").value;
+        const password = document.getElementById("login-password").value;
+        const rememberMe = document.getElementById("remember-me").checked;
+
+        // Xử lý đăng nhập tại đây (ví dụ: kiểm tra thông tin đăng nhập)
+
+        // Redirect hoặc hiển thị thông báo thành công
+        alert("Log in successful!");
+    });
+
+    signupLink.addEventListener("click", function(event) {
+        event.preventDefault();
+        signupContainer.style.display = "none";
+        loginContainer.style.display = "block";
+    });
+
+    signupPageLink.addEventListener("click", function(event) {
+        event.preventDefault();
+        loginContainer.style.display = "none";
+        signupContainer.style.display = "block";
+    });
+});
+    </script>
+</body>
+</html>
